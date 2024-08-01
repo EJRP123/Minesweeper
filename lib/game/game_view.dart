@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minesweeper/game/board_view.dart';
@@ -6,37 +8,26 @@ import 'package:minesweeper/game/number_minesweeper_display.dart';
 import 'board_options.dart';
 import 'cubit/board_cubit/board_cubit.dart';
 import 'cubit/game_cubit/game_cubit.dart';
-
-// Colors are based off this reddit posts
-// https://www.reddit.com/r/Minesweeper/comments/qf1735/minesweeper_numbers_tier_list/
-const List<Color> numberColors = [
-  Colors.transparent, // default value (0)
-  Color(0xFF0000fd),
-  Color(0xFF017e00),
-  Color(0xFFfe0000),
-  Color(0xFF010082),
-  Color(0xFF810101),
-  Color(0xFF008080),
-  Color(0xFF77008A),
-  Color(0xFF808080),
-  Color(0xFF2C2C2C) // Added for impossible number 9
-];
-const Color borderColor = Color(0xFF808080);
-const Color backgroundColor = Color(0xFFc0c0c0);
+import 'cubit/settings_cubit/settings_cubit.dart';
 
 class GameView extends StatelessWidget {
   const GameView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<SettingsCubit, SettingsState>(
+  builder: (context, state) {
     return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: state.backgroundColor,
         appBar: AppBar(
-          backgroundColor: backgroundColor,
+          backgroundColor: state.backgroundColor,
           title: BlocBuilder<GameCubit, GameState>(
             builder: (context, state) {
+              final numFlags = state.squareStates.where((e) => e.flag).length;
+              final numMines = context.read<BoardCubit>().state.numMines();
+
               return NumberMinesweeperDisplay(
-                  numberToDisplay: context.read<BoardCubit>().state.numMines() - state.squareStates.where((e) => e.flag).length);
+                  numberToDisplay: max(numMines - numFlags, 0));
             },
           ),
           centerTitle: true,
@@ -86,5 +77,7 @@ class GameView extends StatelessWidget {
           ],
           child: const BoardView(),
         ));
+  },
+);
   }
 }

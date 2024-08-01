@@ -102,7 +102,7 @@ class BoardView extends StatelessWidget {
                                   state.squareStates[index],
                               builder: (context, state) {
                                 return Square(
-                                  state: state.squareStates[index],
+                                  squareState: state.squareStates[index],
                                   boardSize: state.squareStates.length,
                                 );
                               },

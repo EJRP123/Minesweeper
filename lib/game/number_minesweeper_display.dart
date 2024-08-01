@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:minesweeper/game/game_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'cubit/settings_cubit/settings_cubit.dart';
 
 class NumberMinesweeperDisplay extends StatelessWidget {
   final int numberToDisplay;
@@ -10,7 +12,7 @@ class NumberMinesweeperDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final numberOfDigits = (log(numberToDisplay + 1) / ln10).ceil();
+    final numberOfDigits = numberToDisplay > 0 ? (log(numberToDisplay + 1) / ln10).ceil() : 1;
     final digits = List.filled(numberOfDigits, -1);
 
     int tempNum = numberToDisplay;
@@ -21,20 +23,24 @@ class NumberMinesweeperDisplay extends StatelessWidget {
       iteration--;
     }
 
-    final numberWidgets = digits
-        .map((digit) => FittedBox(
-          child: Text(digit.toString(),
-              style: TextStyle(
-                fontSize: 50,
-                  color: digit != 0 ? numberColors[digit] : Colors.grey.shade700,
-                  fontFamily: "minesweeper")),
-        ))
-        .toList();
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: numberWidgets,
+    return BlocBuilder<SettingsCubit, SettingsState>(
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: digits
+              .map((digit) => FittedBox(
+                    child: Text(digit.toString(),
+                        style: TextStyle(
+                            fontSize: 50,
+                            color: digit != 0
+                                ? state.getDigitColor(digit)
+                                : Colors.grey.shade700,
+                            fontFamily: "minesweeper")),
+                  ))
+              .toList(),
+        );
+      },
     );
   }
 }

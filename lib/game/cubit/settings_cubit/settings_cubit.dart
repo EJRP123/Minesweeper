@@ -3,9 +3,24 @@ import 'package:flutter/material.dart';
 
 part 'settings_state.dart';
 
-// TODO: Add an option in the settings page to change this data
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit() : super(SettingsInitial.defaultSettings());
+
+  void changeColor0(Color col0) {
+    emit(SettingsInitial(
+        col0,
+        state.nb1,
+        state.nb2,
+        state.nb3,
+        state.nb4,
+        state.nb5,
+        state.nb6,
+        state.nb7,
+        state.nb8,
+        state.nb9,
+        state.borderColor,
+        state.backgroundColor));
+  }
 
   void changeColor1(Color col1) {
     emit(SettingsInitial(

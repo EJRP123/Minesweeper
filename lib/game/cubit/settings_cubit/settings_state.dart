@@ -78,7 +78,9 @@ final class SettingsInitial extends SettingsState {
   // Colors are based off this reddit posts
   // https://www.reddit.com/r/Minesweeper/comments/qf1735/minesweeper_numbers_tier_list/
   static SettingsState defaultSettings() => const SettingsInitial(
-      Colors.transparent,
+      // 0 is not hardcoded to transparent since this case is handled
+      // in the Square widget directly
+      Color(0xFF4D4D4D),
       Color(0xFF0000fd),
       Color(0xFF017e00),
       Color(0xFFfe0000),

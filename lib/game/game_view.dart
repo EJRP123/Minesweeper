@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minesweeper/game/board_view.dart';
 import 'package:minesweeper/game/number_minesweeper_display.dart';
+import 'package:minesweeper/game/settings.dart';
 
 import 'board_options.dart';
 import 'cubit/board_cubit/board_cubit.dart';
@@ -16,11 +17,11 @@ class GameView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, SettingsState>(
-  builder: (context, state) {
+  builder: (context, settingState) {
     return Scaffold(
-        backgroundColor: state.backgroundColor,
+        backgroundColor: settingState.backgroundColor,
         appBar: AppBar(
-          backgroundColor: state.backgroundColor,
+          backgroundColor: settingState.backgroundColor,
           title: BlocBuilder<GameCubit, GameState>(
             builder: (context, state) {
               final numFlags = state.squareStates.where((e) => e.flag).length;
@@ -50,7 +51,7 @@ class GameView extends StatelessWidget {
             ),
             IconButton(
               onPressed: () async {
-                await showDialog<BoardInitial>(
+                await showDialog(
                   context: context,
                   builder: (BuildContext dialogContext) {
                     return BlocProvider<BoardCubit>.value(
@@ -62,8 +63,25 @@ class GameView extends StatelessWidget {
                 );
               },
               icon: const Icon(
+                Icons.dashboard_customize,
+                color: Colors.black54,
+              ),
+            ),
+            IconButton(
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext dialogContext) {
+                    return BlocProvider<SettingsCubit>.value(
+                      value: context.read<SettingsCubit>(),
+                      child: const Settings(),
+                    );
+                  },
+                );
+              },
+              icon: const Icon(
                 Icons.settings,
-                color: Colors.grey,
+                color: Colors.black54,
               ),
             )
           ],

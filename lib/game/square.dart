@@ -11,6 +11,15 @@ class Square extends StatelessWidget {
 
   const Square({super.key, required this.squareState, required this.boardSize});
 
+  Color digitColor(SettingsState settingsState) {
+    // Square widget is only used in the Board, thus when value == 0 then the
+    // digit needs to be transparent, which is why it is hardcoded
+    if (squareState.value == 0) {
+      return Colors.transparent;
+    }
+    return settingsState.getDigitColor(squareState.value);
+  }
+  
   @override
   Widget build(BuildContext context) {
     // If chains FTW
@@ -30,7 +39,7 @@ class Square extends StatelessWidget {
                   squareState.isMine() ? "*" : squareState.value.toString(),
                   style: TextStyle(
                       color: squareState.isNumber()
-                          ? state.getDigitColor(squareState.value)
+                          ? digitColor(state)
                           : Colors.black,
                       fontFamily: "minesweeper"),
                 )),

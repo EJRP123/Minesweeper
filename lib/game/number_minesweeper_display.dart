@@ -26,6 +26,7 @@ class NumberMinesweeperDisplay extends StatelessWidget {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: digits
@@ -33,9 +34,7 @@ class NumberMinesweeperDisplay extends StatelessWidget {
                     child: Text(digit.toString(),
                         style: TextStyle(
                             fontSize: 50,
-                            color: digit != 0
-                                ? state.getDigitColor(digit)
-                                : Colors.grey.shade700,
+                            color: state.getDigitColor(digit),
                             fontFamily: "minesweeper")),
                   ))
               .toList(),

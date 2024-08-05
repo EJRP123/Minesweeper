@@ -2,13 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:minesweeper/game/cubit/settings_cubit/settings_cubit.dart';
 import 'package:minesweeper/game/number_minesweeper_display.dart';
 
 import 'custom_color_picker.dart';
 
-// TODO: Save those settings in local storage
 class Settings extends StatelessWidget {
   const Settings({super.key});
 
@@ -39,39 +37,6 @@ class Settings extends StatelessWidget {
               ),
           ]),
         ));
-  }
-}
-
-class TitledColorPicker extends StatelessWidget {
-  final Color pickerColor;
-  final ValueChanged<Color> onColorChanged;
-  final Widget title;
-
-  const TitledColorPicker({
-    super.key,
-    required this.pickerColor,
-    required this.onColorChanged,
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        title,
-        ColorPicker(
-          pickerColor: pickerColor,
-          onColorChanged: onColorChanged,
-          labelTypes: const [],
-          paletteType: PaletteType.hueWheel,
-          hexInputBar: true,
-          pickerAreaHeightPercent: 0.5,
-          portraitOnly: true,
-          displayThumbColor: false,
-        ),
-      ],
-    );
   }
 }
 

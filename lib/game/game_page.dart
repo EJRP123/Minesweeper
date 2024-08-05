@@ -11,13 +11,29 @@ class GamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<BoardCubit>(create: (_) => BoardCubit()),
-        BlocProvider<GameCubit>(create: (_) => GameCubit()),
-        BlocProvider<SettingsCubit>(create: (_) => SettingsCubit()),
-      ],
-      child: const GameView(),
-    );
+    return FutureBuilder(
+        future: SettingsInitial.fromLocalStorage(),
+        builder: (BuildContext context, AsyncSnapshot<SettingsState> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            final data = snapshot.data!;
+
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider<BoardCubit>(create: (_) => BoardCubit()),
+                BlocProvider<GameCubit>(create: (_) => GameCubit()),
+                BlocProvider<SettingsCubit>(create: (_) => SettingsCubit(data)),
+              ],
+              child: const GameView(),
+            );
+          }
+        });
   }
 }

@@ -73,7 +73,7 @@ class GameView extends StatelessWidget {
                     await showDialog(
                       context: context,
                       builder: (BuildContext dialogContext) {
-                        return BlocProvider<SettingsCubit>.value(
+                        return BlocProvider.value(
                           value: context.read<SettingsCubit>(),
                           child: const Settings(),
                         );

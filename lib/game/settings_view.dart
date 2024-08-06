@@ -12,29 +12,35 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settingState = context.read<SettingsCubit>();
+    final largeTextStyle =
+        Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white);
+
+    final settingsCubit = context.read<SettingsCubit>();
 
     return Material(
         color: Colors.transparent,
         child: SingleChildScrollView(
           child: Column(children: [
             BlocProvider.value(
-              value: settingState,
+              value: settingsCubit,
               child: const NumberColorPicker(),
             ),
-
             WheelColorPicker(
-              pickerColor: settingState.state.backgroundColor,
-              onColorChanged: settingState.changeBackgroundColor,
-              title: Text("Background",
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white)),
+              pickerColor: settingsCubit.state.backgroundColor,
+              onColorChanged: settingsCubit.changeBackgroundColor,
+              title: Text("Background", style: largeTextStyle),
             ),
-              WheelColorPicker(
-                pickerColor: settingState.state.borderColor,
-                onColorChanged: settingState.changeBorderColor,
-                title: Text("Border",
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white)),
-              ),
+            WheelColorPicker(
+              pickerColor: settingsCubit.state.borderColor,
+              onColorChanged: settingsCubit.changeBorderColor,
+              title: Text("Border", style: largeTextStyle),
+            ),
+            ElevatedButton(
+                style: const ButtonStyle(
+                    backgroundColor:
+                        WidgetStatePropertyAll<Color>(Colors.grey)),
+                onPressed: settingsCubit.resetToDefault,
+                child: Text("Default settings", style: largeTextStyle))
           ]),
         ));
   }
@@ -83,7 +89,10 @@ class _NumberColorPickerState extends State<NumberColorPicker> {
             numberToPickColor = min(numberToPickColor + 1, 9);
           });
         },
-        icon: const Icon(Icons.arrow_forward_ios, color: Colors.white,));
+        icon: const Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.white,
+        ));
   }
 
   @override
@@ -94,7 +103,8 @@ class _NumberColorPickerState extends State<NumberColorPicker> {
       width: 200.0,
       child: WheelColorPicker(
         pickerColor: settingCubit.state.getDigitColor(numberToPickColor),
-        onColorChanged: changedColorFunction(numberToPickColor, settingCubit),
+        onColorChanged:
+            changedColorFunction(numberToPickColor, settingCubit),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,4 +118,3 @@ class _NumberColorPickerState extends State<NumberColorPicker> {
     );
   }
 }
-

@@ -82,7 +82,6 @@ sealed class SettingsState {
 
       final file = File("$directory/settings.json");
 
-      print('Saving $this');
       final jsonMap = json.encode(toMap());
 
       file.writeAsString(jsonMap);

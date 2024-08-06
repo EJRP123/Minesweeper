@@ -11,6 +11,8 @@ part 'settings_state.dart';
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit(super.initial);
 
+  void resetToDefault() => emit(SettingsInitial.defaultSettings());
+
   void changeColor0(Color col0) {
     emit(SettingsInitial(
         nb0: col0,
@@ -23,7 +25,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: state.nb8,
         nb9: state.nb9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -39,7 +41,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: state.nb8,
         nb9: state.nb9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -55,7 +57,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: state.nb8,
         nb9: state.nb9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -71,7 +73,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: state.nb8,
         nb9: state.nb9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -87,7 +89,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: state.nb8,
         nb9: state.nb9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -103,7 +105,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: state.nb8,
         nb9: state.nb9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -119,7 +121,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: state.nb8,
         nb9: state.nb9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -135,7 +137,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: col7,
         nb8: state.nb8,
         nb9: state.nb9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -151,7 +153,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: col8,
         nb9: state.nb9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -167,7 +169,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: state.nb8,
         nb9: col9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -183,7 +185,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: state.nb8,
         nb9: state.nb9,
-        borderColor:     borderColor,
+        borderColor: borderColor,
         backgroundColor: state.backgroundColor));
   }
 
@@ -199,7 +201,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         nb7: state.nb7,
         nb8: state.nb8,
         nb9: state.nb9,
-        borderColor:     state.borderColor,
+        borderColor: state.borderColor,
         backgroundColor: backgroundColor));
   }
 }
